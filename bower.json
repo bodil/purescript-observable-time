@@ -1,0 +1,28 @@
+{
+  "name": "purescript-observable-time",
+  "version": "0.0.0",
+  "license": "LGPL-3.0+",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bodil/purescript-observable-time.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^1.0.1",
+    "purescript-js-timers": "^1.0.0",
+    "purescript-observable": "^2.1.0",
+    "purescript-eff": "^1.0.0",
+    "purescript-st": "^1.0.0",
+    "purescript-maybe": "^1.0.0"
+  },
+  "devDependencies": {
+    "purescript-test-unit": "~9.0.0",
+    "purescript-refs": "~1.0.0",
+    "purescript-catenable-lists": "purescript/purescript-catenable-lists#master"
+  }
+}
