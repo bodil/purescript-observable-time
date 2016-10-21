@@ -2,7 +2,6 @@ module Test.Main where
 
 import Prelude
 import Data.Array as Array
-import Control.Alt ((<|>))
 import Control.Monad.Aff (Aff, makeAff)
 import Control.Monad.Aff.AVar (AVAR)
 import Control.Monad.Eff (Eff)

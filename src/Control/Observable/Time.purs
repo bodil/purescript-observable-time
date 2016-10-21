@@ -8,7 +8,7 @@ module Control.Observable.Time
 
 import Prelude
 import Control.Monad.Eff.Timer (clearInterval, setInterval, setTimeout, TIMER)
-import Control.Monad.Eff.Unsafe (unsafeInterleaveEff)
+import Control.Monad.Eff.Unsafe (unsafeCoerceEff)
 import Control.Monad.ST (readSTRef, writeSTRef, newSTRef, modifySTRef)
 import Control.Observable (bufferOn, sampleOn, EffO, free, observe, observable, Observable)
 import Data.CatList (CatList)
@@ -29,7 +29,7 @@ delay t o = observable \sink -> do
 -- | Note that this `Observable` never completes. It will keep counting
 -- | until you unsubscribe from it.
 interval :: forall e. Int -> EffO (timer :: TIMER | e) (Observable Int)
-interval t = unsafeInterleaveEff $ observable \sink -> do
+interval t = unsafeCoerceEff $ observable \sink -> do
   counter <- newSTRef (-1)
   tick <- setInterval t $ modifySTRef counter (_ + 1) >>= sink.next
   pure {unsubscribe: clearInterval tick}
@@ -38,7 +38,7 @@ interval t = unsafeInterleaveEff $ observable \sink -> do
 -- | in milliseconds, has elapsed. Then, start yielding values from the
 -- | second `Observable`.
 timeout :: forall a e. Int -> Observable a -> Observable a -> EffO (timer :: TIMER | e) (Observable a)
-timeout t o1 o2 = unsafeInterleaveEff $ observable \sink -> do
+timeout t o1 o2 = unsafeCoerceEff $ observable \sink -> do
   current <- newSTRef Nothing
   let unsubscribe = readSTRef current >>= maybe (pure unit) _.unsubscribe
   timer <- setTimeout t do
